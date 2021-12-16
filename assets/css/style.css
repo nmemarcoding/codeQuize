@@ -1,0 +1,85 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+.top-container {
+    display: flex;
+    justify-content: space-around;
+    padding: 40px;
+}
+
+.main-container {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    width: 50%;
+    /* border: 1px solid black; */
+    margin: 10% 25%;
+}
+
+.questin-container {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    width: 50%;
+    /* border: 1px solid black; */
+    margin: 10% 25%;
+    text-align: center;
+}
+
+.submit-container {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    width: 50%;
+    /* border: 1px solid black; */
+    margin: 10% 25%;
+    text-align: left;
+    padding: 20px;
+}
+
+.initialContainer {
+    margin-top: 10px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.initialContainer p,
+.initialContainer input {
+    margin-right: 20px;
+    margin-top: 20px;
+}
+
+.initialContainer button {
+    padding: 10px;
+    margin-top: 20px;
+}
+
+.answerList {
+    list-style: numbers;
+    text-align: left;
+    padding-left: 30px;
+    margin: 20px 20px;
+    width: 180px;
+    color: white;
+    align-content: center;
+    border-radius: 3px;
+}
+
+.header {
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.btnContainer {
+    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+}
+
+.btnContainer {
+    display: flex;
+    justify-content: space-around;
+}
