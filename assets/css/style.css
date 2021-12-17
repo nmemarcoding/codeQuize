@@ -40,6 +40,33 @@
     padding: 20px;
 }
 
+.score-container {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    width: 50%;
+    /* border: 1px solid black; */
+    margin: 10% 25%;
+    /* text-align: center; */
+}
+
+.score-container li {
+    background-color: #D9D2E8;
+    margin-bottom: 2px
+}
+
+.score-container button {
+    margin: 0 10px 10px 0;
+    padding: 10px;
+    color: white;
+    background-color: purple;
+    border-radius: 4px;
+}
+
+.score-container ol {
+    margin: 10px 0;
+}
+
 .initialContainer {
     margin-top: 10px;
     display: flex;

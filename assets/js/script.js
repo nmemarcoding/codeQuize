@@ -7,7 +7,7 @@ var time = 60;
 var answeramount = 0;
 
 
-
+var data = [];
 
 var questions = [{
     question: "Commonly used data type Do Not include:",
@@ -22,7 +22,16 @@ var questions = [{
     aColor: "background-color: purple;",
     bColor: "background-color: purple;",
     cColor: "background-color: purple;",
-    dColor: "background-color: purple;"
+    dColor: "background-color: purple;",
+    reset: function() {
+        this.status = true;
+        this.userAnswer = "";
+        this.answerElement = "";
+        this.aColor = "background-color: purple;";
+        this.bColor = "background-color: purple;";
+        this.cColor = "background-color: purple;";
+        this.dColor = "background-color: purple;";
+    }
 }, {
     question: "The condition in an if / else statment is endclose whith _____.",
     a: "Quotes",
@@ -35,7 +44,16 @@ var questions = [{
     aColor: "background-color: purple;",
     bColor: "background-color: purple;",
     cColor: "background-color: purple;",
-    dColor: "background-color: purple;"
+    dColor: "background-color: purple;",
+    reset: function() {
+        this.status = true;
+        this.userAnswer = "";
+        this.answerElement = "";
+        this.aColor = "background-color: purple;";
+        this.bColor = "background-color: purple;";
+        this.cColor = "background-color: purple;";
+        this.dColor = "background-color: purple;";
+    }
 }, {
     question: "Array in java Script can be used to store _______.",
     a: "Numbers and string",
@@ -48,7 +66,16 @@ var questions = [{
     aColor: "background-color: purple;",
     bColor: "background-color: purple;",
     cColor: "background-color: purple;",
-    dColor: "background-color: purple;"
+    dColor: "background-color: purple;",
+    reset: function() {
+        this.status = true;
+        this.userAnswer = "";
+        this.answerElement = "";
+        this.aColor = "background-color: purple;";
+        this.bColor = "background-color: purple;";
+        this.cColor = "background-color: purple;";
+        this.dColor = "background-color: purple;";
+    }
 }, {
     question: "String values must be enclosed whitin ____ when being assign to variable.",
     a: "Commas",
@@ -61,12 +88,22 @@ var questions = [{
     aColor: "background-color: purple;",
     bColor: "background-color: purple;",
     cColor: "background-color: purple;",
-    dColor: "background-color: purple;"
+    dColor: "background-color: purple;",
+    reset: function() {
+        this.status = true;
+        this.userAnswer = "";
+        this.answerElement = "";
+        this.aColor = "background-color: purple;";
+        this.bColor = "background-color: purple;";
+        this.cColor = "background-color: purple;";
+        this.dColor = "background-color: purple;";
+    }
 }];
 questionsValue = (100 / questions.length);
 
 
 function mainPageContent() {
+    document.querySelector(".high-score").textContent = grade;
     // quize box
     var startContainer = document.createElement("div");
     startContainer.className = "main-container";
@@ -288,6 +325,8 @@ function submitContent() {
     var initialInput = document.createElement("input");
     var submitBtn = document.createElement("button");
 
+    submitBtn.setAttribute("id", "submit-btn");
+
     initialContainer.className = "initialContainer"
 
     header.textContent = "All done!";
@@ -301,7 +340,23 @@ function submitContent() {
     initialContainer.appendChild(inotialText);
     initialContainer.appendChild(initialInput);
     initialContainer.appendChild(submitBtn);
+    document.getElementById("submit-btn").addEventListener("click", function() {
+        data.push({ name: initialInput.value, grade: grade })
+        data = data.sort((a, b) => {
+            return b.grade - a.grade;
+        });
+        localStorage.setItem("grade", JSON.stringify(data));
+        var object = (JSON.parse(localStorage.getItem("grade")));
+        // try again
+        document.querySelector(".submit-container").remove();
+        for (i = 0; i < questions.length; i++) {
+            questions[i].reset();
+        }
+        grade = 0;
+        time = 60;
+        scoreSection();
 
+    });
 
 
 };
@@ -325,17 +380,78 @@ function timer() {
     var timerinterval = setInterval(function() {
         var timer = document.querySelector(".time");
         timer.textContent = time;
-        time--;
+        if (time > 0) {
+            time--;
+        }
         if (time === 0) {
             timer.textContent = 0;
             clearInterval(timerinterval);
             callSubmit()
         }
-    }, 1000);
+    }, 10);
 
 }
 
+function scoreSection() {
+    // creat elements
+    var container = document.createElement("div");
+    var header = document.createElement("h2")
+    var olEl = document.createElement("ol")
+    var btnContainer = document.createElement("div");
+    var goBack = document.createElement("button")
+    var clearScores = document.createElement("button");
+
+    // elements classes
+    container.className = "score-container";
+    goBack.setAttribute("id", "goBackBtn");
+    clearScores.setAttribute("id", "ClearScoresBtn");
+
+    // elements content
+    header.textContent = "High scores"
+    goBack.textContent = "Go back"
+    clearScores.textContent = "Clear high scores"
+
+    // append classes
+    body.appendChild(container);
+    container.appendChild(header);
+    container.appendChild(olEl);
+    container.appendChild(btnContainer);
+    btnContainer.appendChild(goBack);
+    btnContainer.appendChild(clearScores);
+    for (i = 0; i < data.length; i++) {
+        var temp = document.createElement("li")
+        temp.textContent = data[i].name + "-" + data[i].grade;
+        olEl.appendChild(temp);
+    }
+    document.getElementById("goBackBtn").addEventListener("click", function() {
+        container.remove();
+        questionsNumber = 0;
+        mainPageContent();
+
+    });
+    document.getElementById("ClearScoresBtn").addEventListener("click", function() {
+        localStorage.removeItem("grade");
+        data = [];
+    });
+
+
+};
 
 
 // caling function in the main
 mainPageContent();
+
+if (localStorage.getItem("grade")) {
+    var object = (JSON.parse(localStorage.getItem("grade")));
+    for (i = 0; i < object.length; i++) {
+        data.push(object[i]);
+    }
+
+    data = data.sort((a, b) => {
+        return b.grade - a.grade;
+    });
+
+    for (i = 0; i < object.length; i++) {
+        window.alert(data[i].name + data[i].grade);
+    }
+}
