@@ -2,6 +2,7 @@
     padding: 0;
     margin: 0;
     box-sizing: border-box;
+    list-style: none;
 }
 
 .top-container {
@@ -53,6 +54,10 @@
 .score-container li {
     background-color: #D9D2E8;
     margin-bottom: 2px
+}
+
+.score-container li::before {
+    background-color: #D9D2E8;
 }
 
 .score-container button {
@@ -109,4 +114,16 @@
 .btnContainer {
     display: flex;
     justify-content: space-around;
+}
+
+.high-score {
+    display: none;
+}
+
+.view-high-score:hover ol {
+    display: block;
+}
+
+.view-high-score {
+    color: #D9D2E8;
 }

@@ -103,7 +103,6 @@ questionsValue = (100 / questions.length);
 
 
 function mainPageContent() {
-    document.querySelector(".high-score").textContent = grade;
     // quize box
     var startContainer = document.createElement("div");
     startContainer.className = "main-container";
@@ -215,7 +214,7 @@ function showQuestion(questionNumber) {
             questions[questionNumber].aColor = "background-color: red;";
             aLi.setAttribute("style", questions[questionNumber].aColor);
         }
-        document.querySelector(".high-score").textContent = grade;
+
 
     });
     bLi.addEventListener("click", function() {
@@ -256,7 +255,7 @@ function showQuestion(questionNumber) {
             questions[questionNumber].aColor = "background-color: red;";
             cLi.setAttribute("style", questions[questionNumber].aColor);
         }
-        document.querySelector(".high-score").textContent = grade;
+
 
 
     });
@@ -277,7 +276,7 @@ function showQuestion(questionNumber) {
             questions[questionNumber].aColor = "background-color: red;";
             dLi.setAttribute("style", questions[questionNumber].aColor);
         }
-        document.querySelector(".high-score").textContent = grade;
+
 
 
     });
@@ -315,7 +314,7 @@ function submitContent() {
 
 
     // creat container
-    var container = document.createElement("div");
+    var container = document.createElement("form");
     container.className = "submit-container";
     body.appendChild(container);
     var header = document.createElement("h2");
@@ -341,6 +340,7 @@ function submitContent() {
     initialContainer.appendChild(initialInput);
     initialContainer.appendChild(submitBtn);
     document.getElementById("submit-btn").addEventListener("click", function() {
+
         data.push({ name: initialInput.value, grade: grade })
         data = data.sort((a, b) => {
             return b.grade - a.grade;
@@ -388,7 +388,7 @@ function timer() {
             clearInterval(timerinterval);
             callSubmit()
         }
-    }, 10);
+    }, 1000);
 
 }
 
@@ -440,6 +440,7 @@ function scoreSection() {
 
 // caling function in the main
 mainPageContent();
+viewHighScore();
 
 if (localStorage.getItem("grade")) {
     var object = (JSON.parse(localStorage.getItem("grade")));
@@ -451,7 +452,25 @@ if (localStorage.getItem("grade")) {
         return b.grade - a.grade;
     });
 
-    for (i = 0; i < object.length; i++) {
-        window.alert(data[i].name + data[i].grade);
+    var highScore = document.querySelector(".high-score")
+    for (i = 0; i < data.length; i++) {
+        var temp = document.createElement("li")
+        temp.className = "scores"
+        temp.textContent = data[i].name + "-" + data[i].grade;
+        highScore.appendChild(temp);
     }
-}
+
+
+};
+
+function viewHighScore() {
+
+    document.querySelector(".view-high-score").addEventListener("click", function() {
+        document.querySelector(".high-score").setAttribute("style", "display:block");
+        document.querySelector(".view-high-score").addEventListener("click", function() {
+            document.querySelector(".high-score").setAttribute("style", "display:none");
+            viewHighScore();
+        });
+
+    })
+};
