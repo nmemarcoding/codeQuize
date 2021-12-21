@@ -34,4 +34,4 @@ THEN time is subtracted from the clock
 <img width="642" alt="Screen Shot 2021-12-17 at 8 04 14 AM" src="https://user-images.githubusercontent.com/94582549/146856096-bd8efc34-61bc-46b4-aacd-82ce20c3a522.png">
 
 To vist this code quize, go to:
-https://nmemarcoding.github.io/passwordGenerator/
+https://nmemarcoding.github.io/codeQuize/
