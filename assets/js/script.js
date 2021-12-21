@@ -5,10 +5,9 @@ var grade = 0;
 var questionsValue = 0;
 var time = 60;
 var answeramount = 0;
-
-
 var data = [];
 
+// questions contents
 var questions = [{
     question: "Commonly used data type Do Not include:",
     a: "String",
@@ -101,7 +100,7 @@ var questions = [{
 }];
 questionsValue = (100 / questions.length);
 
-
+// main start quize page 
 function mainPageContent() {
     // quize box
     var startContainer = document.createElement("div");
@@ -181,12 +180,7 @@ function showQuestion(questionNumber) {
     questionsContainer.appendChild(answer);
     questionsContainer.appendChild(btnContainer);
 
-    // if (questionNumber > 0) {
-    //     btnContainer.appendChild(backtBtn);
-    // }
-    // if (questionNumber < (questions.length - 1)) {
-    //     btnContainer.appendChild(nextBtn);
-    // }
+    // shows if user answer right or wrong for few second
     var timer = 3;
     if (questionNumber > 0) {
         answer.textContent = questions[questionNumber - 1].userAnswer;
@@ -335,6 +329,7 @@ function showQuestion(questionNumber) {
 
 };
 
+// submit page content
 function submitContent() {
 
 
@@ -394,7 +389,6 @@ function submitContent() {
         }
         grade = 0;
         time = 60;
-        debugger;
         scoreSection();
 
     });
@@ -402,21 +396,7 @@ function submitContent() {
 
 };
 
-
-
-
-
-function callSubmit() {
-    var timeInterval = setInterval(function() {
-        if (time <= 0) {
-            document.getElementById("questionsContainer").remove();
-            submitContent();
-            clearInterval(timeInterval);
-        }
-
-    }, 1000);
-}
-
+// timer function
 function timer() {
     var timerinterval = setInterval(function() {
         var timer = document.querySelector(".time");
@@ -424,15 +404,19 @@ function timer() {
         if (time > 0) {
             time--;
         }
-        if (time <= 0) {
+        if (time <= 0 || questions[3].status === false) {
             timer.textContent = 0;
+            // calling submit container
+            document.getElementById("questionsContainer").remove();
+            submitContent();
             clearInterval(timerinterval);
-            callSubmit()
+
         }
     }, 1000);
 
 }
 
+// score page contents
 function scoreSection() {
     // creat elements
     var container = document.createElement("div");
@@ -478,11 +462,7 @@ function scoreSection() {
 
 };
 
-
-// caling function in the main
-mainPageContent();
-viewHighScore();
-
+// storing grade in local storage 
 if (localStorage.getItem("grade")) {
     var object = (JSON.parse(localStorage.getItem("grade")));
     for (i = 0; i < object.length; i++) {
@@ -504,6 +484,7 @@ if (localStorage.getItem("grade")) {
 
 };
 
+// click on view high score to display high score.
 function viewHighScore() {
 
     document.querySelector(".view-high-score").addEventListener("click", function() {
@@ -522,3 +503,7 @@ function aoutoNext() {
     body.removeChild(questionsContainer);
     showQuestion(questionsNumber);
 };
+
+// caling function in the main
+mainPageContent();
+viewHighScore();

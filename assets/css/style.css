@@ -127,3 +127,8 @@
 .view-high-score {
     color: #D9D2E8;
 }
+
+li:hover {
+    color: red;
+    cursor: pointer;
+}
