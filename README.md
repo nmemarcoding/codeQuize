@@ -33,5 +33,5 @@ THEN time is subtracted from the clock
 <img width="643" alt="Screen Shot 2021-12-15 at 1 26 34 PM" src="https://user-images.githubusercontent.com/94582549/146856041-b8b62709-5647-4da0-a0ad-3c9cc989002c.png">
 <img width="642" alt="Screen Shot 2021-12-17 at 8 04 14 AM" src="https://user-images.githubusercontent.com/94582549/146856096-bd8efc34-61bc-46b4-aacd-82ce20c3a522.png">
 
-To vist this password generator, go to:
+To vist this code quize, go to:
 https://nmemarcoding.github.io/passwordGenerator/
