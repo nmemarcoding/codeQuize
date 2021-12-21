@@ -181,13 +181,25 @@ function showQuestion(questionNumber) {
     questionsContainer.appendChild(answer);
     questionsContainer.appendChild(btnContainer);
 
+    // if (questionNumber > 0) {
+    //     btnContainer.appendChild(backtBtn);
+    // }
+    // if (questionNumber < (questions.length - 1)) {
+    //     btnContainer.appendChild(nextBtn);
+    // }
+    var timer = 3;
     if (questionNumber > 0) {
-        btnContainer.appendChild(backtBtn);
-    }
-    if (questionNumber < (questions.length - 1)) {
-        btnContainer.appendChild(nextBtn);
-    }
-    answer.textContent = questions[questionNumber].userAnswer;
+        answer.textContent = questions[questionNumber - 1].userAnswer;
+        var timerinterval = setInterval(function() {
+            timer = timer - 1;
+            if (timer <= 0) {
+                answer.remove();
+                clearInterval(timerinterval);
+            }
+        }, 1000);
+
+    };
+
 
     // update anser background color
     aLi.setAttribute("style", questions[questionNumber].aColor);
@@ -206,6 +218,8 @@ function showQuestion(questionNumber) {
             answeramount++;
             questions[questionNumber].aColor = "background-color: green;";
             aLi.setAttribute("style", questions[questionNumber].aColor);
+            if (questionNumber < ((questions.length) - 1)) { aoutoNext(); };
+
         } else if ((aLi.textContent != questions[questionNumber].answer && questions[questionNumber].status === true)) {
             questions[questionNumber].userAnswer = "Wrong";
             answer.textContent = questions[questionNumber].userAnswer;
@@ -213,6 +227,8 @@ function showQuestion(questionNumber) {
             answeramount++;
             questions[questionNumber].aColor = "background-color: red;";
             aLi.setAttribute("style", questions[questionNumber].aColor);
+            if (questionNumber < ((questions.length) - 1)) { aoutoNext(); };
+            time = time - 15;
         }
 
 
@@ -226,6 +242,7 @@ function showQuestion(questionNumber) {
             answeramount++;
             questions[questionNumber].bColor = "background-color: green;";
             bLi.setAttribute("style", questions[questionNumber].bColor);
+            if (questionNumber < ((questions.length) - 1)) { aoutoNext(); };
         } else if ((bLi.textContent != questions[questionNumber].answer && questions[questionNumber].status === true)) {
             questions[questionNumber].userAnswer = "Wrong";
             answer.textContent = questions[questionNumber].userAnswer;
@@ -233,6 +250,8 @@ function showQuestion(questionNumber) {
             answeramount++;
             questions[questionNumber].aColor = "background-color: red;";
             bLi.setAttribute("style", questions[questionNumber].aColor);
+            if (questionNumber < ((questions.length) - 1)) { aoutoNext(); };
+            time = time - 15;
         }
 
 
@@ -247,6 +266,7 @@ function showQuestion(questionNumber) {
             answeramount++;
             questions[questionNumber].cColor = "background-color: green;";
             cLi.setAttribute("style", questions[questionNumber].cColor);
+            if (questionNumber < ((questions.length) - 1)) { aoutoNext(); };
         } else if ((cLi.textContent != questions[questionNumber].answer && questions[questionNumber].status === true)) {
             questions[questionNumber].userAnswer = "Wrong";
             answer.textContent = questions[questionNumber].userAnswer;
@@ -254,6 +274,8 @@ function showQuestion(questionNumber) {
             answeramount++;
             questions[questionNumber].aColor = "background-color: red;";
             cLi.setAttribute("style", questions[questionNumber].aColor);
+            if (questionNumber < ((questions.length) - 1)) { aoutoNext(); };
+            time = time - 15;
         }
 
 
@@ -268,6 +290,7 @@ function showQuestion(questionNumber) {
             answeramount++;
             questions[questionNumber].dColor = "background-color: green;";
             dLi.setAttribute("style", questions[questionNumber].dColor);
+            if (questionNumber < ((questions.length) - 1)) { aoutoNext(); };
         } else if ((dLi.textContent != questions[questionNumber].answer && questions[questionNumber].status === true)) {
             questions[questionNumber].userAnswer = "Wrong";
             answer.textContent = questions[questionNumber].userAnswer;
@@ -275,6 +298,8 @@ function showQuestion(questionNumber) {
             answeramount++;
             questions[questionNumber].aColor = "background-color: red;";
             dLi.setAttribute("style", questions[questionNumber].aColor);
+            if (questionNumber < ((questions.length) - 1)) { aoutoNext(); };
+            time = time - 15;
         }
 
 
@@ -323,6 +348,9 @@ function submitContent() {
     var inotialText = document.createElement("p");
     var initialInput = document.createElement("input");
     var submitBtn = document.createElement("button");
+    var answer = document.createElement("h2");
+    answer.textContent = answer.textContent = questions[questions.length - 1].userAnswer
+
 
     submitBtn.setAttribute("id", "submit-btn");
 
@@ -339,6 +367,18 @@ function submitContent() {
     initialContainer.appendChild(inotialText);
     initialContainer.appendChild(initialInput);
     initialContainer.appendChild(submitBtn);
+
+    // showing answer fore 3 seconds 
+    var timer = 3;
+    var timerinterval = setInterval(function() {
+        timer--;
+        container.appendChild(answer);
+        if (timer <= 0) {
+            answer.remove();
+            clearInterval(timerinterval);
+        }
+    }, 1000);
+    container.appendChild(answer);
     document.getElementById("submit-btn").addEventListener("click", function() {
 
         data.push({ name: initialInput.value, grade: grade })
@@ -354,6 +394,7 @@ function submitContent() {
         }
         grade = 0;
         time = 60;
+        debugger;
         scoreSection();
 
     });
@@ -367,7 +408,7 @@ function submitContent() {
 
 function callSubmit() {
     var timeInterval = setInterval(function() {
-        if (time === 0) {
+        if (time <= 0) {
             document.getElementById("questionsContainer").remove();
             submitContent();
             clearInterval(timeInterval);
@@ -383,7 +424,7 @@ function timer() {
         if (time > 0) {
             time--;
         }
-        if (time === 0) {
+        if (time <= 0) {
             timer.textContent = 0;
             clearInterval(timerinterval);
             callSubmit()
@@ -473,4 +514,11 @@ function viewHighScore() {
         });
 
     })
+};
+
+//show next question auto 
+function aoutoNext() {
+    questionsNumber++;
+    body.removeChild(questionsContainer);
+    showQuestion(questionsNumber);
 };
