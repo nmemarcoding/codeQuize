@@ -1,4 +1,4 @@
-// creat star quize content
+// creat star quiz content
 body = document.querySelector("body");
 var questionsNumber = 0;
 var grade = 0;
@@ -100,7 +100,7 @@ var questions = [{
 }];
 questionsValue = (100 / questions.length);
 
-// main start quize page 
+// start quiz  main page 
 function mainPageContent() {
     // quize box
     var startContainer = document.createElement("div");
@@ -128,7 +128,7 @@ function mainPageContent() {
     startQuizeBtn.className = "header"
     btnContainer.appendChild(startQuizeBtn);
 
-    // removing quizestart up content
+    // removing quiz start up content
     document.querySelector("#startQuizeBtn").addEventListener("click", function() {
         body.removeChild(startContainer);
         showQuestion(questionsNumber);
@@ -195,7 +195,7 @@ function showQuestion(questionNumber) {
     };
 
 
-    // update anser background color
+    // update answer background color
     aLi.setAttribute("style", questions[questionNumber].aColor);
     bLi.setAttribute("style", questions[questionNumber].bColor);
     cLi.setAttribute("style", questions[questionNumber].cColor);
@@ -363,7 +363,7 @@ function submitContent() {
     initialContainer.appendChild(initialInput);
     initialContainer.appendChild(submitBtn);
 
-    // showing answer fore 3 seconds 
+    // showing answer for 3 seconds 
     var timer = 3;
     var timerinterval = setInterval(function() {
         timer--;
